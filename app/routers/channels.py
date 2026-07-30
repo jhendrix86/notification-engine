@@ -102,7 +102,7 @@ async def get_channel_status(
         
     except Exception as e:
         logger.error(f"Failed to get channel status: {e}")
-        raise HTTPException(status_code=500, detail(str(e))
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.post("/configure")
@@ -127,4 +127,4 @@ async def configure_channel(
         
     except Exception as e:
         logger.error(f"Failed to configure channel: {e}")
-        raise HTTPException(status_code=500, detail(str(e))
+        raise HTTPException(status_code=500, detail=str(e))

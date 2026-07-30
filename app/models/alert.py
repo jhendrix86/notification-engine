@@ -45,7 +45,7 @@ class Alert(Base):
     # Alert details
     title = Column(String(255), nullable=False)
     description = Column(Text, nullable=True)
-    metadata = Column(Text, nullable=True)  # JSON string
+    extra_metadata = Column(Text, nullable=True)  # JSON string
     
     # Resolution
     resolved_at = Column(DateTime, nullable=True)

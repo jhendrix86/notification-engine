@@ -122,7 +122,7 @@ async def escalate_alert(
         
     except Exception as e:
         logger.error(f"Failed to escalate alert: {e}")
-        raise HTTPException(status_code=500, detail(str(e))
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.get("/{alert_id}")
@@ -208,4 +208,4 @@ async def list_alerts(
         
     except Exception as e:
         logger.error(f"Failed to list alerts: {e}")
-        raise HTTPException(status_code=500, detail(str(e))
+        raise HTTPException(status_code=500, detail=str(e))

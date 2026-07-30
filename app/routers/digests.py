@@ -65,7 +65,7 @@ async def create_digest(
         
     except Exception as e:
         logger.error(f"Failed to create digest: {e}")
-        raise HTTPException(status_code=500, detail(str(e))
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.get("/{digest_id}")
@@ -96,7 +96,7 @@ async def get_digest(
         
     except Exception as e:
         logger.error(f"Failed to get digest: {e}")
-        raise HTTPException(status_code=500, detail(str(e))
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.post("/{digest_id}/send")

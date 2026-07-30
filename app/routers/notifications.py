@@ -97,7 +97,7 @@ async def send_batch_notifications(
         
     except Exception as e:
         logger.error(f"Failed to send batch notifications: {e}")
-        raise HTTPException(status_code=500, detail(str(e))
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.get("/{notification_id}")
@@ -127,7 +127,7 @@ async def get_notification(
         
     except Exception as e:
         logger.error(f"Failed to get notification: {e}")
-        raise HTTPException(status_code=500, detail(str(e))
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.get("/")
@@ -178,7 +178,7 @@ async def list_notifications(
         
     except Exception as e:
         logger.error(f"Failed to list notifications: {e}")
-        raise HTTPException(status_code=500, detail(str(e))
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.post("/{notification_id}/retry")
@@ -204,4 +204,4 @@ async def retry_notification(
         
     except Exception as e:
         logger.error(f"Failed to retry notification: {e}")
-        raise HTTPException(status_code=500, detail(str(e))
+        raise HTTPException(status_code=500, detail=str(e))
