@@ -5,7 +5,7 @@ Notification router
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import Optional, List
-from datetime import datetime
+from datetime import datetime, timedelta
 from pydantic import BaseModel
 from loguru import logger
 
@@ -55,7 +55,7 @@ async def send_notification(
             "subject": request.subject,
             "message": request.message,
             "status": "sent",
-            "sent_at": datetime.utcnow isoformat(),
+            "sent_at": datetime.utcnow().isoformat(),
             "external_id": "ext_123"
         }
         
