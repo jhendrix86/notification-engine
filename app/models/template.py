@@ -9,9 +9,10 @@ from datetime import datetime
 import uuid
 
 from app.database import Base
+from app.models.tenant_base import TenantBase
 
 
-class Template(Base):
+class Template(TenantBase, Base):
     """Notification template model"""
     __tablename__ = "templates"
     

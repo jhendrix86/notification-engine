@@ -10,6 +10,7 @@ import uuid
 import enum
 
 from app.database import Base
+from app.models.tenant_base import TenantBase
 
 
 class AlertPriority(str, enum.Enum):
@@ -30,7 +31,7 @@ class AlertStatus(str, enum.Enum):
     IGNORED = "ignored"
 
 
-class Alert(Base):
+class Alert(TenantBase, Base):
     """Alert model"""
     __tablename__ = "alerts"
     

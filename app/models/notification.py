@@ -10,6 +10,7 @@ import uuid
 import enum
 
 from app.database import Base
+from app.models.tenant_base import TenantBase
 
 
 class NotificationChannel(str, enum.Enum):
@@ -30,7 +31,7 @@ class NotificationStatus(str, enum.Enum):
     CANCELLED = "cancelled"
 
 
-class Notification(Base):
+class Notification(TenantBase, Base):
     """Notification model"""
     __tablename__ = "notifications"
     

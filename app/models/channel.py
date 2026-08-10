@@ -9,6 +9,7 @@ import uuid
 import enum
 
 from app.database import Base
+from app.models.tenant_base import TenantBase
 
 
 class ChannelStatus(str, enum.Enum):
@@ -19,7 +20,7 @@ class ChannelStatus(str, enum.Enum):
     ERROR = "error"
 
 
-class Channel(Base):
+class Channel(TenantBase, Base):
     """Channel configuration model"""
     __tablename__ = "channels"
     
