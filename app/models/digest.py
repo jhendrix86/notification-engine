@@ -21,7 +21,7 @@ class DigestSchedule(str, enum.Enum):
     CUSTOM = "custom"
 
 
-class Digest(Base):
+class Digest(TenantBase, Base):
     """Digest model"""
     __tablename__ = "digests"
     

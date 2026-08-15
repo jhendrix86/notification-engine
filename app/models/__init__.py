@@ -3,7 +3,7 @@ Database models for Notification Engine
 """
 
 from .tenant import Tenant
-from .tenant_base import TenantBase
+from .tenant_base import TenantBase, apply_tenant_context
 from .alert import Alert, AlertPriority, AlertStatus
 from .notification import Notification, NotificationStatus, NotificationChannel
 from .template import Template
@@ -13,6 +13,7 @@ from .digest import Digest, DigestSchedule
 __all__ = [
     'Tenant',
     'TenantBase',
+    'apply_tenant_context',
     'Alert',
     'AlertPriority',
     'AlertStatus',
