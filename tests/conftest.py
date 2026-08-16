@@ -46,6 +46,24 @@ async def db_engine():
     async with database_module.engine.begin() as conn:
         await conn.run_sync(database_module.Base.metadata.drop_all)
         await conn.run_sync(database_module.Base.metadata.create_all)
+    
+    # Create default tenant for tenant isolation tests
+    async with database_module.AsyncSessionLocal() as session:
+        from app.models.tenant import Tenant
+        import uuid
+        
+        # Create the two tenant IDs used in tests
+        test_tenant_a = uuid.UUID("3e2a7c54-a950-48f3-9eb9-d1eb6b2d1be2")
+        test_tenant_b = uuid.UUID("00000000-0000-0000-0000-000000000001")
+        
+        tenant_a = Tenant(id=test_tenant_a, name="Test Tenant A", slug="test-tenant-a", is_active=True)
+        tenant_b = Tenant(id=test_tenant_b, name="Test Tenant B", slug="test-tenant-b", is_active=True)
+        
+        session.add(tenant_a)
+        session.add(tenant_b)
+        await session.commit()
+        await session.close()
+        
     return database_module.engine
 
 
