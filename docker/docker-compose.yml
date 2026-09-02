@@ -3,8 +3,14 @@ version: '3.8'
 services:
   notification-engine:
     build:
-      context: ..
-      dockerfile: docker/Dockerfile
+      # Workspace root, not just this repo - needed to reach the
+      # empire-operators sibling package the Dockerfile copies in (see its
+      # own comment for why; content-engine is the reference impl). This
+      # context path is relative to this compose file's own location, so
+      # `docker compose -f docker/docker-compose.yml build` from
+      # notification-engine/ still works unchanged.
+      context: ../..
+      dockerfile: notification-engine/docker/Dockerfile
     container_name: notification-engine
     ports:
       - "8037:8037"

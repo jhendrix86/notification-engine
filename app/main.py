@@ -14,6 +14,7 @@ from app.config import settings
 from app.database import init_db
 from app.routers import alerts, notifications, templates, channels, digests
 from app.middleware.tenant import tenant_middleware
+from empire_operators.middleware import SafetyBoundaryMiddleware
 
 
 @asynccontextmanager
@@ -57,6 +58,12 @@ app.add_middleware(
 
 # Add tenant middleware for multi-tenancy support
 app.middleware("http")(tenant_middleware)
+
+# Reject request bodies matching known-unsafe patterns (prompt injection,
+# `drop table`, `<script>`) before they reach a router. empire_os
+# SafetyBoundaryOperator — Phase B stretch wire, see
+# empire_os/EMPIRE_OS_INTEGRATION_ANALYSIS.md + SECURITY_REVIEW.md.
+app.add_middleware(SafetyBoundaryMiddleware)
 
 # Include routers
 app.include_router(alerts.router, prefix="/alerts", tags=["alerts"])

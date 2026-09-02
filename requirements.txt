@@ -49,3 +49,9 @@ respx>=0.20.0  # test-only: mocks the SendGrid/Twilio/Slack/Discord HTTP calls
 # Utilities
 python-dotenv==1.0.0
 pyyaml==6.0.1
+
+# Shared fleet package - empire_os reasoning operators. app/main.py uses
+# SafetyBoundaryMiddleware to reject prompt-injection / `drop table` /
+# `<script>` request bodies before any router. Sibling checkout + Docker
+# COPY machinery, same as content-engine (see docker/Dockerfile).
+-e ../empire-operators
