@@ -8,6 +8,7 @@ import os
 
 os.environ.setdefault("DATABASE_URL", "sqlite+aiosqlite://")
 
+import pytest
 import pytest_asyncio
 from asgi_lifespan import LifespanManager
 from httpx import AsyncClient, ASGITransport
@@ -36,6 +37,26 @@ def _enable_sqlite_foreign_keys(dbapi_connection, connection_record):
 
 
 from app.main import app  # noqa: E402
+
+
+@pytest.fixture(scope="session", autouse=True)
+def _dispose_async_engine():
+    """
+    aiosqlite runs every connection on a **non-daemon** background thread
+    (`_connection_worker_thread`) that only stops when the connection /
+    engine is disposed. The session-lived `database_module.engine` above is
+    never disposed on its own, so that thread outlives the test session,
+    the Python process can't reach interpreter shutdown after the last
+    test, and a CI runner's `Run tests` step hangs on the never-EOF'd
+    stdout pipe until the job timeout (pytest itself finishes in ~2s).
+    Dispose it explicitly at session teardown. `asyncio.run` is used
+    rather than the pytest-asyncio loop because that loop is already torn
+    down by the time this session fixture unwinds.
+    """
+    yield
+    import asyncio
+
+    asyncio.run(database_module.engine.dispose())
 
 
 @pytest_asyncio.fixture
