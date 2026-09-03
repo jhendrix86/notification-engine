@@ -2,8 +2,7 @@
 Tenant model for multi-tenancy support
 """
 
-from sqlalchemy import Column, String, DateTime, Boolean
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import Column, String, DateTime, Boolean, Uuid
 from datetime import datetime
 import uuid
 
@@ -14,7 +13,7 @@ class Tenant(Base):
     """Tenant model for multi-tenancy"""
     __tablename__ = "tenants"
     
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(Uuid(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name = Column(String(255), nullable=False, unique=True)
     slug = Column(String(100), nullable=False, unique=True, index=True)
     description = Column(String(500), nullable=True)

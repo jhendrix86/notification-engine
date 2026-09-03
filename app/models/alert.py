@@ -2,8 +2,7 @@
 Alert models
 """
 
-from sqlalchemy import Column, String, Integer, DateTime, Boolean, Enum, ForeignKey, Text
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import Column, String, Integer, DateTime, Boolean, Enum, ForeignKey, Text, Uuid
 from sqlalchemy.orm import relationship
 from datetime import datetime
 import uuid
@@ -35,7 +34,7 @@ class Alert(TenantBase, Base):
     """Alert model"""
     __tablename__ = "alerts"
     
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(Uuid(as_uuid=True), primary_key=True, default=uuid.uuid4)
     source = Column(String(100), nullable=False, index=True)  # Engine that created the alert
     alert_type = Column(String(100), nullable=False, index=True)
     

@@ -2,8 +2,7 @@
 Notification models
 """
 
-from sqlalchemy import Column, String, Integer, DateTime, Boolean, Enum, ForeignKey, Text, JSON
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import Column, String, Integer, DateTime, Boolean, Enum, ForeignKey, Text, JSON, Uuid
 from sqlalchemy.orm import relationship
 from datetime import datetime
 import uuid
@@ -35,9 +34,9 @@ class Notification(TenantBase, Base):
     """Notification model"""
     __tablename__ = "notifications"
     
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    alert_id = Column(UUID(as_uuid=True), ForeignKey("alerts.id"), nullable=True)
-    template_id = Column(UUID(as_uuid=True), ForeignKey("templates.id"), nullable=True)
+    id = Column(Uuid(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    alert_id = Column(Uuid(as_uuid=True), ForeignKey("alerts.id"), nullable=True)
+    template_id = Column(Uuid(as_uuid=True), ForeignKey("templates.id"), nullable=True)
     
     # Recipient
     recipient = Column(String(255), nullable=False, index=True)
